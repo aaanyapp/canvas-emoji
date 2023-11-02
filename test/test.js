@@ -6,9 +6,11 @@ const fs = require('fs');
 function drawPngReplaceEmoji() {
     const canvas = createCanvas(800, 200);
     const canvasCtx = canvas.getContext("2d");
+    canvasCtx.fillStyle = '#FFF';
+    canvasCtx.fillRect(0,0, canvas.width, canvas.height)
     const canvasEmoji = new CanvasEmoji(canvasCtx);
     const a = canvasEmoji.drawPngReplaceEmoji({
-        text: "测试一下哦💋💃测试一下💋测试一下💋💃测试一下💋测试一下💋💃",
+        text: "💋💋💃AAAny Team🦎AAAny Team🦎AAAny Team🦎",
         fillStyle: "#000000",
         font: "bold 12px Impact",
         x: 0,
