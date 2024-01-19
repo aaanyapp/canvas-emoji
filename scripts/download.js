@@ -5,22 +5,22 @@ const emojis = require("unicode-emoji-json");
 const emojiHandle = require("node-emoji");
 
 let i = 0;
+let faildCount = 0;
 async function dowload(emoji, unicode) {
-  i++
+  i++;
   unicode = emoji.codePointAt().toString(16);
   let imageUrl = `https://emoji.aranja.com/static/emoji-data/img-apple-160/${unicode}.png`; // 图片的 URL
   let localImageFile = `./emoji_pngs/${emojiHandle.which(emoji)}.png`; // 本地保存图片的路径
   if (fs.existsSync(localImageFile)) {
     return;
   }
-  await new Promise(function (resolve) {
+  await new Promise(function (resolve, reject) {
     https.get(imageUrl, function (response) {
-      if(response.statusCode === 200) {
-        const writer = fs.createWriteStream(localImageFile);
-        writer.on("finish", resolve);
-        response.pipe(writer);
+      if (response.statusCode === 200) {
+        response.pipe(fs.createWriteStream(localImageFile));
+        resolve(`${i}: ${emoji} 下载成功`);
       } else {
-        console.log(`${emoji} 下载失败`);
+        reject(`${faildCount++}: ${emoji} 下载失败 ${i}`, );
       }
     });
   });
@@ -28,8 +28,11 @@ async function dowload(emoji, unicode) {
 
 async function main() {
   for (const emoji in emojis) {
-    await dowload(emoji, emoji.codePointAt().toString(16));
+    await dowload(emoji, emoji.codePointAt().toString(16)).catch((err) =>
+      console.log(err)
+    );
   }
+  console.log(`下载完成，失败 ${faildCount} 个`);
 }
 
 main();
