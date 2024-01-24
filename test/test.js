@@ -10,7 +10,7 @@ function drawPngReplaceEmoji() {
     canvasCtx.fillRect(0,0, canvas.width, canvas.height)
     const canvasEmoji = new CanvasEmoji(canvasCtx);
     const a = canvasEmoji.drawPngReplaceEmoji({
-        text: "💋💋💃AAAny Team🦎AAAny Team🦎AAAny Team🦎",
+        text: "AA🥲🥲🥲Any Team🦎",
         fillStyle: "#000000",
         font: "bold 12px Impact",
         x: 0,

@@ -66,6 +66,10 @@ class CanvasEmoji {
                 canvasCtx.drawImage(emojiImg, x, y - (5 / 6) * emojiH, emojiW, emojiH);
                 x += emojiW;
             }
+            else {
+                canvasCtx.fillText("□", x, y);
+                x += emojiW;
+            }
             text = text.substr(index + emojiItem.length);
             i++;
             if (i === emojiArr.length) {
